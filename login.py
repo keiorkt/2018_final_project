@@ -12,22 +12,21 @@ class Login:
       print("Your account is locked please contact the support center")
       raise 'Account authentication failed'
     else:
-      self.validate_password(attemps-1)
+      self.validate_password(attempts-1)
 
   def ask_user_name(self, attemps):
     if attemps == 0:
       print("Your account is locked please contact the support center")
       raise 'Account authentication failed'
+    print(f"{attemps} attemps left")
     self.read_account_csv()
-    print(f"{attemps} attemps left : Hello, plase enter your user ID")
+    print("Hello, plase enter your user ID")
     self.user_id = input()
     if self.user_id not in self.accounts.keys():
-      print("Invalid user_id please enter the correct one")
       self.ask_user_name(attemps-1)
-    print(f"{attemps} attemps left : Hello, plase enter your user name")
+    print("Hello, plase enter your user name")
     self.user_name = input()
     if self.user_name != self.accounts[self.user_id]['user_name']:
-      print("Invalid user_name please enter the correct user_name")
       self.ask_user_name(attemps-1)
     self.validate_password(5)
 
@@ -38,6 +37,7 @@ class Login:
       next(reader, None)
       for line in reader:
         account = {}
+        
         account['user_name'] = line[1]
         account['pw'] = line[2]
         accounts[line[0]] = account
