@@ -1,5 +1,6 @@
 import csv
 
+# このクラスを使用すればログインをすることができる
 class Login:
   def validate_password(self, attemps):
     print(f"{self.user_name} : please enter your password")
@@ -44,4 +45,3 @@ class Login:
 
 obj = Login()
 obj.ask_user_name(5)
-
