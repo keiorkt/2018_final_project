@@ -41,7 +41,6 @@ class Login:
         account['pw'] = line[2]
         accounts[line[0]] = account
       self.accounts = accounts
-      print(self.accounts)
 
 obj = Login()
 obj.ask_user_name(5)
