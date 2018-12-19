@@ -1,2 +1,2 @@
-# 2018_final_project
-Intro to programming final project
+# 2018 Fall Intro to programming final project
+This is the repo for Intro to programming final project.
