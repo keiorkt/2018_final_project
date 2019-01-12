@@ -1,46 +1,26 @@
-import csv
 
-# このクラスを使用すればログインをすることができる
-class Login:
-  def validate_password(self, attempts):
-    print(f"{attempts} attempts left : {self.user_name} please enter your password")
-    password = input()
-    if password ==  self.accounts[self.user_id]['pw']:
-      print("Logged in!!!")
-    elif attempts == 0:
-      print("Your account is locked please contact the support center")
-      raise 'Account authentication failed'
-    else:
-      self.validate_password(attempts-1)
+teacher_accounts = {'id_1':'password_1', 'id_2':'password_2'}
 
-  def ask_user_name(self, attempts):
-    if attempts == 0:
-      print("Your account is locked please contact the support center")
-      raise 'Account authentication failed'
-    self.read_account_csv()
-    print(f"{attempts} attempts left : Hello, plase enter your user ID")
-    self.user_id = input()
-    if self.user_id not in self.accounts.keys():
-      print("Invalid user_id please enter the correct one")
-      self.ask_user_name(attempts-1)
-    print(f"{attempts} attempts left : Hello, plase enter your user name")
-    self.user_name = input()
-    if self.user_name != self.accounts[self.user_id]['user_name']:
-      print("Invalid user_name please enter the correct user_name")
-      self.ask_user_name(attempts-1)
-    self.validate_password(5)
+def validate_password(attempts, accounts, user_id):
+  print(f"hello {user_id}, please input your password. {attempts} attempts left")
+  password = input()
+  if attempts == 0:
+    print("your account is locked")
+    return False
+  elif password == accounts[user_id]:
+    print("logged in.")
+    return True
+  else:
+    validate_password(attempts-1, accounts, user_id)
 
-  def read_account_csv(self):
-    with open('account.csv') as input_file:
-      accounts = {}
-      reader = csv.reader(input_file)
-      next(reader, None)
-      for line in reader:
-        account = {}
-        account['user_name'] = line[1]
-        account['pw'] = line[2]
-        accounts[line[0]] = account
-      self.accounts = accounts
+def ask_user_name(accounts):
+  account_keys = list(accounts.keys())
+  print(f"please input your user ID.")
+  user_id = input()
+  if user_id in account_keys:
+    validate_password(5, accounts, user_id)
+  else:
+    print("invalid username try again")
+    ask_user_name(accounts)
 
-obj = Login()
-obj.ask_user_name(5)
+ask_user_name(teacher_accounts)
