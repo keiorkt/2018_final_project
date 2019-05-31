@@ -1,4 +1,4 @@
-# 2018 Fall Intro to programming final project
+# programming project
 This is the repo for Intro to programming final project.
 
 # How to setup
